@@ -1,49 +1,33 @@
 <template>
-          <div class="container bdy">
-            <div class="row mt-5">
-                <div class="col-md-12">
-                    <div class="title mt-4">
-                        <h3><i class="fa fa-calculator"></i> محاسبه معدل </h3>
-                    </div>
-                    <table class="table">
-                        <thead class="border-0">
-                            <tr class="header border-0">
-                                <th> شماره </th>
-                                <th> نام درس </th>
-                                <th> ضریب </th>
-                                <th> نمره </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="pro in products" class="border-0" :key="pro.id">
-                                <td> <input type="number" v-model="pro.id" class="form-control"> </td>
-                                <td> <input type="text" v-model="pro.name" class="form-control"> </td>
-                                <td> <input type="number" v-model="pro.factor" class="form-control"> </td>
-                                <td> <input type="number" v-model="pro.score" class="form-control"> </td>
-                            </tr>
-                            <tr>
-                                <td class="td-btn"> <button class="btn-add float-right" @click="addtocart"> + </button> </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="row border-top box-btn mb-3 d-flex justify-content-center mt-5">
-                        <div class="col-md-4">
-                            <form>
-                                <div class="input-group mt-5 mb-3">
-                                    <button class="btn-record" @click="subtotal"> محاسبه </button>
-                                    <input class="input-record" :value="subtotal">
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+    <div class="container bdy">
+    <div class="row mt-5 content">
+        <div class="col-md-12">
+    <div class="title mt-4">
+        <h3><i class="fa fa-calculator"></i> محاسبه معدل </h3>
+    </div>
+
+<!-- جدول -->   
+<mytable />
+
+    <div class="row border-top box-btn mb-3 d-flex justify-content-center mt-5">
+        <div class="col-md-4">
+            <form>
+                <div class="input-group mt-5 mb-3">
+                    <!-- <input class="input-record" :value="subtotal"> -->
                 </div>
-            </div>
+            </form>
         </div>
+    </div>
+        </div>
+    </div>
+</div>
 
 </template>
 
 <script>
+import mytable from './table.vue'
 export default {
+  components: { mytable},
     data(){
         return{
             products:[
@@ -59,55 +43,21 @@ export default {
 
         }
     },
-    methods:{
-         addtocart(){
-            var id = this.product.id
-            var name = this.product.name
-            var score = this.product.score
-            var factor = this.product.factor
-
-            this.products.push({ id:id , name:name , score:score , factor:factor })
-
-        }
-    },
-        computed:{
-
-   
-            sub: function(){
-              return this.products.reduce(function(total,item){
-              return (total + item.score * item.factor)
-             },0)
-      },
-            num :function(){
-              return this.products.reduce(function(total,item){
-                  return total + item.factor
-              },0)
-            },
-        subtotal(){
-            return this.sub / this.num
-        },
-
-    },
 }
 </script>
 
 <style>
-/* body{
+body{
     font-family: IS;
-} */
+}
 input{
     padding: 10px 12px;
     border-radius: 5px;
     border: none;
     outline: none;
 }
-.bdy{
-    background-color: #101820;
-    color: #f2aa4c !important;
-    border-radius: 180px 10px 10px 50px;
-}
 .header{
-    color: #f2aa4c !important;
+    /* color: #f2aa4c !important; */
     font-size: larger;
     text-align: center;
     font-weight: 800 !important;
@@ -115,16 +65,7 @@ input{
 .table td, .table th {
     border: none !important;
 }
-.btn-add{
-    background-color: #f2aa4c !important;
-    border-radius: 27% !important;
-    padding: 10px;
-    border: none;
-    outline: none;
-    margin-left: 149px;
-    margin-top: 20px;
-    cursor: pointer;
-}
+
 .btn-record{
     background-color: #f2aa4c !important;
     border: none !important;
@@ -150,29 +91,53 @@ input{
     padding: 20px 60px;
     border-radius: 100px 10px 10px 50px;
     margin-bottom: 60px;
+    margin-top: -90px;
 }
 .title h3{
     font-size: 26px;
     margin: -8px 6px;
 }
 .container{
-    max-width: 1000px;
     text-align: center;
     direction: rtl;
     margin: 0 auto;
+    /**/ 
+     position: relative;
+    max-width: 1000px;
+    margin: 30px;
+    margin-top: 120px !important;
+    box-shadow: 20px 20px 50px rgba(0, 0, 0, .5);
+    border-radius: 15px;
+    background: rgba(255, 255, 255, .1);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, .5);
+    border-left: 1px solid rgba(255, 255, 255, .5);
+    backdrop-filter: blur(5px);
+    color: rgba(255, 255, 255, .5) !important;
+    width: 1100px;
 }
 table{
     margin: auto;
 }
- /* @font-face{
+ @font-face{
     font-family: IS;
     font-style: normal;
-    src: url("public/font/IRAN Sans Regular (mmrostami.blog.ir).ttf");
-    }  */
+    src: url("/font/IRAN Sans Regular (mmrostami.blog.ir).ttf");
+    } 
     .mb-3{
         padding-bottom:20px
     }
     .mt-5{
         padding-top: 25px;
+    }
+    .content{
+    padding: 20px;
+    text-align: center;
+    transition: .5s;
+    transform: translateY(100px);
+
     }
 </style>
