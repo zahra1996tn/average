@@ -10,12 +10,4 @@ export default {
 </script>
 
 <style>
-   .counter{
-    color:#f2aa4c ;
-    border: none;
-    outline: none;
-    float: left;
-    background: transparent;
-    font-size: 18px;
-}
 </style>
